@@ -9,6 +9,7 @@ import Registrar from "./pages/Registrar";
 import NuevoPassword from "./pages/NuevoPassword";
 
 import { AuthProvider } from "./context/AuthProvider";
+import AdministrarPacientes from "./pages/AdministrarPacientes";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           </Route>
 
           <Route path="/admin" element={<RutaProtegida />}>
+            <Route index element={<AdministrarPacientes/>}/>
           </Route>
         </Routes>
       </AuthProvider>

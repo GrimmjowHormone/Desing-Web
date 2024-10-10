@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-// import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import Alerta from "../components/Alerta";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
-  // const { auth } = useAuth();
+  const { setAuth, token } = useAuth();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate("/admin");
+    }
+  }, [token,navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,7 +51,8 @@ const Login = () => {
         password,
       });
       localStorage.setItem("token", data.token);
-      navigate('/admin')
+      setAuth(data);
+      navigate("/admin");
       setAlerta({ msg: "Usuario Autenticado", error: false });
     } catch (error) {
       setAlerta({ msg: error.response.data.msg, error: true });
@@ -52,6 +60,10 @@ const Login = () => {
   };
 
   const { msg } = alerta;
+
+  if (token) {
+    return null;
+  }
   return (
     <>
       <div>
