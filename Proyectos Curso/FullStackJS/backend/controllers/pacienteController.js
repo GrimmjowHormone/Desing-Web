@@ -1,13 +1,14 @@
 import Paciente from "../models/Paciente.js";
 const agregarPaciente = async (req, res) => {
   console.log(req.body);
-  const paciente = new Paciente(req.body);
+  const paciente = new Paciente(req.body);                                                        
   paciente.veterinario = req.veterinario._id;
   try {
     const pacienteAlmacenado = await paciente.save();
     res.json(pacienteAlmacenado);
   } catch (error) {
     console.log(error);
+    res.status(400).json({ msg: "No se pudo guardar el paciente" });
   }
 };
 const obtenerPacientes = async (req, res) => {

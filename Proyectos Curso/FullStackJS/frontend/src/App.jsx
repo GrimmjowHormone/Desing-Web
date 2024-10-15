@@ -9,6 +9,7 @@ import Registrar from "./pages/Registrar";
 import NuevoPassword from "./pages/NuevoPassword";
 
 import { AuthProvider } from "./context/AuthProvider";
+import { PacientesProvider } from "./context/ PacientesProvider";
 import AdministrarPacientes from "./pages/AdministrarPacientes";
 
 function App() {
@@ -25,8 +26,15 @@ function App() {
             <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
           </Route>
 
-          <Route path="/admin" element={<RutaProtegida />}>
-            <Route index element={<AdministrarPacientes/>}/>
+          <Route
+            path="/admin"
+            element={
+              <PacientesProvider>
+                <RutaProtegida />{" "}
+              </PacientesProvider>
+            }
+          >
+            <Route index element={<AdministrarPacientes />} />
           </Route>
         </Routes>
       </AuthProvider>

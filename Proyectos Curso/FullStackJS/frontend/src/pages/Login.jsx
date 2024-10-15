@@ -76,10 +76,11 @@ const Login = () => {
         {msg && <Alerta alerta={alerta} />}
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="my-5">
-            <label className="uppercase text-gray-600 block text-xl font-bold ">
+            <label htmlFor="email" className="uppercase text-gray-600 block text-xl font-bold ">
               Email
             </label>
             <input
+            id="email"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               type="text"
               placeholder="Email de registro"
@@ -88,10 +89,11 @@ const Login = () => {
             />
           </div>
           <div>
-            <label className="uppercase text-gray-600 block text-xl font-bold  md:mt-0">
+            <label htmlFor="password" className="uppercase text-gray-600 block text-xl font-bold  md:mt-0">
               Password
             </label>
             <input
+              id="password"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               type="password"
               placeholder="Introduce tu Password"
