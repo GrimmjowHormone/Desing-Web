@@ -9,8 +9,6 @@ const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("token");
   useEffect(() => {
     const autenticarUsuario = async () => {
-     
-
       if (!token) {
         setCargando(false);
 
@@ -37,13 +35,66 @@ const AuthProvider = ({ children }) => {
     autenticarUsuario();
   }, []);
 
+  const actualizarPerfil = async (datos) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const url = `/veterinarios/perfil/${datos._id}`;
+      const { data } = await clienteAxios.put(url, datos, config);
+      console.log(data);
+      return {
+        msg: "Almacenado correctamente",
+      };
+    } catch (error) {
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      };
+    }
+  };
+  const guardarPassword = async (datos) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log(datos);
+    try {
+      const url = `/veterinarios/cambiar-password`;
+
+      const { data } = await clienteAxios.put(url, datos, config);
+      console.log(data);
+      return {
+        msg: data.msg,
+      };
+    } catch (error) {
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      };
+    }
+  };
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     setAuth({});
   };
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, cargando, cerrarSesion, token }}
+      value={{
+        auth,
+        setAuth,
+        cargando,
+        cerrarSesion,
+        token,
+        actualizarPerfil,
+        guardarPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>
