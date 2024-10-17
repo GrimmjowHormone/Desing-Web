@@ -11,7 +11,7 @@ const EditarPerfil = () => {
     setPerfil(auth);
   }, [auth]);
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { nombre, email, telefono } = perfil;
@@ -31,12 +31,14 @@ const EditarPerfil = () => {
 
       return;
     }
-    const resultado= await actualizarPerfil(perfil);
+    const resultado = await actualizarPerfil(perfil);
+
     setAlerta(resultado);
     setTimeout(() => {
-      setAlerta({})
+      setAlerta({});
     }, 1800);
   };
+  const nombreActual = perfil.nombre;
 
   const { msg } = alerta;
   return (
@@ -64,13 +66,13 @@ const EditarPerfil = () => {
                 id="nombre"
                 name="nombre"
                 type="text"
-                value={perfil.nombre || ""}
                 onChange={(e) =>
                   setPerfil({
                     ...perfil,
                     [e.target.name]: e.target.value,
                   })
                 }
+                value={nombreActual || ""}
               />
             </div>
             <div className="my-3">

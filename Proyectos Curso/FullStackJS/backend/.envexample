@@ -1,4 +1,4 @@
-// MONGO_URI=
+// MONGO_URL=
 // JWT_SECRET=
 
 // EMAIL_USER=
